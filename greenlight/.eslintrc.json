@@ -1,61 +1,65 @@
 {
-  "extends": ["react-app", "plugin:prettier/recommended"],
-  "plugins": ["react-hooks", "prettier"],
   "env": {
     "browser": true,
-    "jest": true
+    "es6": true,
+    "node": true
   },
-  "ignorePatterns": ["node_modules/", ".idea/"],
-  "settings": {
-    "import/resolver": {
-      "node": {
-        "paths": ["src"]
-      }
-    },
-    "insert_final_newline": true
-  },
+  "extends": ["plugin:import/recommended", "plugin:prettier/recommended"],
   "parserOptions": {
-    "sourceType": "module",
-    "allowImportExportEveryWhere": true,
-    "ecmaVersion": 11
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2020,
+    "sourceType": "module"
   },
+  "plugins": ["react", "prettier", "import"],
   "rules": {
-    "linebreak-style": 0,
-    "import/no-anonymous-default-export": "error",
-    "import/no-extraneous-dependencies": "off",
-    "prettier/prettier": ["error", { "endOfLine": "auto" }],
+    "import/no-unresolved": "off",
+    "prettier/prettier": "error",
+    "react/react-in-jsx-scope": 0,
+    "react/jsx-filename-extension": 0,
+    "react/jsx-one-expression-per-line": 0,
+    "no-nested-ternary": 0,
+    "import/group-exports": "error",
     "import/order": [
       "error",
       {
-        "groups": ["builtin", "external", "internal", "parent", "sibling"],
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index",
+          ["object", "type"]
+        ],
+        "pathGroups": [
+          {
+            "pattern": "@/**",
+            "group": "external",
+            "position": "after"
+          },
+          {
+            "pattern": "react",
+            "group": "builtin",
+            "position": "before"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": ["react"],
         "newlines-between": "always",
         "alphabetize": {
           "order": "asc",
-          "caseInsensitive": false
+          "caseInsensitive": true
         }
       }
     ],
-    "import/prefer-default-export": "off",
-    "indent": [
+    "import/no-extraneous-dependencies": [
       "error",
-      2,
       {
-        "SwitchCase": 1,
-        "ignoredNodes": ["JSXElement *"]
+        "devDependencies": true,
+        "optionalDependencies": false,
+        "peerDependencies": false
       }
-    ],
-    "jsx-a11y/anchor-is-valid": "off",
-    "no-console": "error",
-    "no-unused-vars": "off",
-    "react/jsx-props-no-spreading": "off",
-    "react/react-in-jsx-scope": "off",
-    "react/jsx-filename-extension": [
-      "warn",
-      {
-        "extensions": [".js", ".jsx"]
-      }
-    ],
-    "react/prop-types": 0,
-    "react/function-component-definition": 0
+    ]
   }
 }
